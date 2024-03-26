@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ::selection {
+  @apply bg-olive-earth-yellow text-black;
+} */
+
+@layer base {
+  body {
+    background-color: whitesmoke;
+  }
+}
+
+@layer components {
+  .cards-grid {
+    display: grid;
+    place-content: center;
+    place-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+}
