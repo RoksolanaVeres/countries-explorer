@@ -1,7 +1,7 @@
 import * as React from "react";
 import { motion, type HTMLMotionProps } from "framer-motion";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 const Card = React.forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(({ className, ...props }, ref) => (
   <motion.div
