@@ -23,7 +23,7 @@ type PaginationLinkProps = {
   isActive?: boolean;
   size?: ButtonProps["size"];
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 } & Omit<React.ComponentProps<typeof Link>, "className">;
 
 const PaginationLink = ({ className, isActive, size = "icon", children, ...props }: PaginationLinkProps) => (
