@@ -1,23 +1,25 @@
-import { useState } from "react";
+import { create } from "zustand";
 
-const getPage = () => {
+const getParams = () => {
   const search = window.location.search;
   const params = new URLSearchParams(search);
-  return Number(params.get("page")) || 1;
+  return params;
 };
 
-const usePage = () => {
-  const [page, set] = useState(getPage());
+type PageStore = {
+  page: number;
+  setPage: (page: number) => void;
+};
 
-  const setPage = (page: React.SetStateAction<number>) => {
+const usePage = create<PageStore>((set) => ({
+  page: getParams().get("page") ? Number(getParams().get("page")) : 1,
+  setPage: (page: number) => {
     const search = new URLSearchParams(window.location.search);
     search.set("page", String(page));
-    window.location.search = search.toString();
-
-    set(page);
-  };
-
-  return [page, setPage] as const;
-};
+    window.history.pushState({}, "", `${window.location.pathname}?${search.toString()}`);
+    set({ page });
+    window.scrollTo({ top: 0, behavior: "instant" });
+  },
+}));
 
 export default usePage;

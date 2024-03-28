@@ -2,13 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ::selection {
-  @apply bg-olive-earth-yellow text-black;
-} */
-
 @layer base {
   body {
-    background-color: whitesmoke;
+    @apply bg-oxford-oxford-blue/5;
   }
 }
 
@@ -16,7 +12,7 @@
   .cards-grid {
     display: grid;
     place-content: center;
-    place-items: center;
+    place-items: start center;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
   }

@@ -1,9 +1,13 @@
-import { Country } from "@/App";
 import { useState } from "react";
-import { Card, CardContent, CardHeader } from "./ui/card";
-import { Skeleton } from "./ui/skeleton";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { type Country } from "@/countries-store";
 
-export default function CountryCard({ country }: { country: Country }) {
+type CountryCardProps = {
+  country: Country;
+};
+
+export default function CountryCard({ country }: CountryCardProps) {
   const [imgLoaded, setImgLoaded] = useState(false);
   return (
     <Card key={country.name.common} className="w-full max-w-[21rem]">
@@ -39,15 +43,15 @@ export default function CountryCard({ country }: { country: Country }) {
             <ul className="flex flex-col gap-0.5">
               <li>
                 <span className="font-semibold">Capital: </span>
-                {country.capital[0]}
+                {country.capital[0] || "N/A"}
               </li>
               <li>
                 <span className="font-semibold">Region: </span>
-                {country.region}
+                {country.region || "N/A"}
               </li>
               <li>
                 <span className="font-semibold">Population: </span>
-                {country.population.toLocaleString()}
+                {country.population.toLocaleString() || "N/A"}
               </li>
             </ul>
           </>

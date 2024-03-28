@@ -1,29 +1,53 @@
-import CountryCard from "@/components/country-card";
+import CountryCard from "@/country-card";
 import useFetchCountries from "@/countries-store";
 import Error from "@/error";
 import Pagination from "@/pagination";
 import usePage from "@/use-page";
+import Search, { useSearch } from "@/search";
+import { useEffect } from "react";
+import RegionFilters, { useRegionFilter } from "@/region-filters";
 
 const PER_PAGE = 24;
 
 export default function App() {
   const { countries, loading, error } = useFetchCountries();
-  const [page] = usePage();
+  const { page, setPage } = usePage();
+  const { search } = useSearch();
+  const { region } = useRegionFilter();
 
-  const renderedCountries = countries.slice(PER_PAGE * page, PER_PAGE * page + PER_PAGE);
+  const totalFilteredCountries = countries
+    .filter(
+      (country) =>
+        country.name.common.toLowerCase().startsWith(search.toLowerCase()) ||
+        country.name.official.toLowerCase().startsWith(search.toLowerCase()) ||
+        country.name.common.toLowerCase().includes(search.toLowerCase()) ||
+        country.name.official.toLowerCase().includes(search.toLowerCase()),
+    )
+    .filter((country) => region === "" || country.region.toLowerCase() === region.toLowerCase());
+
+  const renderedCountries = totalFilteredCountries.slice(PER_PAGE * (page - 1), PER_PAGE * page);
 
   const prevPageNum = page === 1 ? null : page - 1;
   const nextPageNum = renderedCountries.length < PER_PAGE ? null : page + 1;
-  const totalPages = Math.trunc(countries.length / PER_PAGE);
-  
+  const totalPages = Math.ceil(totalFilteredCountries.length / PER_PAGE);
+
+  const shouldShowPagination = totalPages > 1;
+
+  useEffect(() => {
+    setPage(1);
+  }, [search, setPage]);
 
   if (!error.ok) {
     return <Error message={error.message} />;
   }
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="cards-grid px-14">
+    <div className="flex flex-col gap-6 px-0 sm:px-3 lg:px-14">
+      <div className="flex flex-wrap justify-between gap-4">
+        <Search />
+        <RegionFilters />
+      </div>
+      <div className="cards-grid">
         {loading ? (
           Array.from({ length: PER_PAGE }, (_, i) => i).map((i) => <CountryCard.Skeleton key={i} />)
         ) : (
@@ -33,8 +57,13 @@ export default function App() {
             ))}
           </>
         )}
+        {renderedCountries.length === 0 && (
+          <p className="mt-14 text-base sm:text-lg md:text-xl xl:text-2xl">No countries found</p>
+        )}
       </div>
-      <Pagination currentPage={page} totalPages={totalPages} prevPageNum={prevPageNum} nextPageNum={nextPageNum} />
+      {shouldShowPagination && (
+        <Pagination currentPage={page} totalPages={totalPages} prevPageNum={prevPageNum} nextPageNum={nextPageNum} />
+      )}
     </div>
   );
 }

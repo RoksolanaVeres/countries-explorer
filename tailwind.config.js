@@ -3,12 +3,7 @@ import tailwindAnimate from "tailwindcss-animate";
 
 export default defineConfig({
   darkMode: ["class"],
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
+  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
     container: {
@@ -23,14 +18,6 @@ export default defineConfig({
     },
     extend: {
       colors: {
-        olive: {
-          "dark-moss-green": "#606C38",
-          "pakistan-green": "#283618",
-          cornsilk: "#fefae0",
-          sunset: "#EECE9F",
-          "earth-yellow": "#dda15e",
-          "tigers-eye": "#bc6c25",
-        },
         oxford: {
           "oxford-blue": "#001427",
           "hookers-green": "#708d81",

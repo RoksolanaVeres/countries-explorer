@@ -17,12 +17,30 @@ type PaginationWrapperProps = {
 };
 
 export default function PaginationWrapper({ currentPage, totalPages, prevPageNum, nextPageNum }: PaginationWrapperProps) {
-  const [, setPage] = usePage();
+  const { setPage } = usePage();
 
   const onPreviousClick = () => setPage(currentPage - 1);
   const onNextClick = () => setPage(currentPage + 1);
   const onFirstPageClick = () => setPage(1);
   const onLastPageClick = () => setPage(totalPages);
+
+  const shouldShowAllPages = totalPages <= 5;
+
+  if (shouldShowAllPages) {
+    return (
+      <Pagination>
+        <PaginationContent>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+            <PaginationItem key={pageNumber}>
+              <PaginationButton isActive={currentPage === pageNumber} onClick={() => setPage(pageNumber)}>
+                {pageNumber}
+              </PaginationButton>
+            </PaginationItem>
+          ))}
+        </PaginationContent>
+      </Pagination>
+    );
+  }
 
   return (
     <Pagination>
