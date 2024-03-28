@@ -9,19 +9,26 @@ import { useEffect } from "react";
 import { useSearch as useWouterSearch } from "wouter";
 
 const usePage = () => {
-  const wouterSearch = useWouterSearch();
   const page = parseInt(
-    wouterSearch
+    useWouterSearch()
       .split("&")
       .find((param) => param.startsWith("page="))
       ?.split("=")[1] || "1",
   );
-  return page;
+
+  const setPage = (newPage: number) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", newPage.toString());
+
+    window.history.pushState({}, "", `${window.location.pathname}?${params.toString()}`);
+  };
+
+  return { page, setPage };
 };
 
 export default function CountriesPage() {
   const { countries, loading, error } = useFetchCountries();
-  const page = usePage();
+  const { page, setPage } = usePage();
   const { search } = useSearch();
   const { region } = useFilter();
 
@@ -46,6 +53,11 @@ export default function CountriesPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [page]);
+
+  useEffect(() => {
+    if (search === "") return;
+    setPage(1);
+  }, [search, setPage]);
 
   if (!error.ok) {
     return <Error message={error.message} />;
