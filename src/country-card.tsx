@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/ui/card";
 import { Skeleton } from "@/ui/skeleton";
 import { type Country } from "@/countries-store";
+import { Link } from "wouter";
 
 type CountryCardProps = {
   country: Country;
@@ -9,6 +10,12 @@ type CountryCardProps = {
 
 export default function CountryCard({ country }: CountryCardProps) {
   const [imgLoaded, setImgLoaded] = useState(false);
+
+  const handleCountryNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.history.pushState({}, "", `/${country.name.common}`);
+  };
+
   return (
     <Card key={country.name.common} className="min-h-[23rem] w-full max-w-[21rem]">
       <CardHeader className="p-0">
@@ -16,12 +23,14 @@ export default function CountryCard({ country }: CountryCardProps) {
           {!imgLoaded && (
             <Skeleton className="bg-oxford-green/25 h-full w-full transform rounded-b-none rounded-t-lg object-cover transition-transform duration-1000" />
           )}
-          <img
-            src={country.flags.svg}
-            alt={country.flags.alt}
-            className="h-full w-full transform rounded-t-lg object-cover transition-transform duration-300 ease-out hover:scale-110"
-            onLoad={() => setImgLoaded(true)}
-          />
+          <Link href={`/${country.name.common}`} onClick={handleCountryNavigation}>
+            <img
+              src={country.flags.svg}
+              alt={country.flags.alt}
+              className="h-full w-full transform rounded-t-lg object-cover transition-transform duration-300 ease-out hover:scale-110"
+              onLoad={() => setImgLoaded(true)}
+            />
+          </Link>
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-5 py-6">
@@ -39,7 +48,11 @@ export default function CountryCard({ country }: CountryCardProps) {
           </div>
         ) : (
           <>
-            <h3 className="w-fit cursor-default text-xl font-bold hover:underline">{country.name.common}</h3>
+            <h3 className="w-fit cursor-default text-xl font-bold hover:underline">
+              <Link href={`/${country.name.common}`} onClick={handleCountryNavigation}>
+                {country.name.common}
+              </Link>
+            </h3>
             <ul className="flex flex-col gap-1">
               <li>
                 <span className="font-semibold">Capital: </span>

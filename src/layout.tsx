@@ -1,5 +1,5 @@
+import { Link } from "wouter";
 import { useFilter } from "@/region-filters";
-import usePage from "@/use-page";
 import { useSearch } from "@/search";
 
 type LayoutProps = {
@@ -16,24 +16,21 @@ export default function Layout({ children }: LayoutProps) {
 }
 
 function Header() {
-  const setPage = usePage((state) => state.setPage);
-  const setFilter = useFilter((state) => state.setRegion);
+  const setRegion = useFilter((state) => state.setRegion);
   const setSearch = useSearch((state) => state.setSearch);
 
-  const navigateToHome = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    setPage(1);
-    setFilter("null");
+  const resetFilters = () => {
+    setRegion("");
     setSearch("");
   };
 
   return (
-    <div className="flex w-full flex-col items-center bg-oxford-blue text-white shadow-sm">
+    <div className="bg-oxford-blue flex w-full flex-col items-center text-white shadow-sm">
       <div className="flex h-20 w-full max-w-[100rem] items-center px-14">
         <h1 className="text-2xl font-semibold tracking-wide">
-          <a href="/" onClick={navigateToHome}>
+          <Link href="/" onClick={resetFilters}>
             Countries Explorer
-          </a>
+          </Link>
         </h1>
       </div>
     </div>

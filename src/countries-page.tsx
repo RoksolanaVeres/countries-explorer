@@ -4,13 +4,24 @@ import Error from "@/error";
 import Pagination from "@/pagination";
 import RegionFilters, { useFilter } from "@/region-filters";
 import Search, { useSearch } from "@/search";
-import usePage from "@/use-page";
 import { PER_PAGE } from "@/utils";
 import { useEffect } from "react";
+import { useSearch as useWouterSearch } from "wouter";
 
-export default function App() {
+const usePage = () => {
+  const wouterSearch = useWouterSearch();
+  const page = parseInt(
+    wouterSearch
+      .split("&")
+      .find((param) => param.startsWith("page="))
+      ?.split("=")[1] || "1",
+  );
+  return page;
+};
+
+export default function CountriesPage() {
   const { countries, loading, error } = useFetchCountries();
-  const { page, setPage } = usePage();
+  const page = usePage();
   const { search } = useSearch();
   const { region } = useFilter();
 
@@ -33,8 +44,8 @@ export default function App() {
   const shouldShowPagination = totalPages > 1;
 
   useEffect(() => {
-    setPage(1);
-  }, [search, setPage]);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [page]);
 
   if (!error.ok) {
     return <Error message={error.message} />;

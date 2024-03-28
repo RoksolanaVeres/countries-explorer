@@ -1,7 +1,6 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/ui/select";
 import { create } from "zustand";
-
-const REGIONS = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+import { REGIONS } from "@/utils";
 
 const getParams = () => {
   const params = new URLSearchParams(window.location.search);
@@ -19,6 +18,7 @@ export const useFilter = create<RegionFilterStore>((set) => ({
     set({ region });
     const params = getParams();
     params.set("region", region);
+    params.set("page", "1");
     if (region === "null") {
       params.delete("region");
       set({ region: "" });
@@ -37,12 +37,12 @@ export default function RegionFilters() {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
+          {region && <SelectItem value="null">Clear Filter</SelectItem>}
           {REGIONS.map((region) => (
             <SelectItem key={region} value={region}>
               {region}
             </SelectItem>
           ))}
-          {region && <SelectItem value="null">Clear Filter</SelectItem>}
         </SelectGroup>
       </SelectContent>
     </Select>

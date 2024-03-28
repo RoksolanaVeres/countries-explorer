@@ -3,11 +3,10 @@ import {
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationButton,
+  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/ui/pagination";
-import usePage from "@/use-page";
 
 type PaginationWrapperProps = {
   currentPage: number;
@@ -17,13 +16,6 @@ type PaginationWrapperProps = {
 };
 
 export default function PaginationWrapper({ currentPage, totalPages, prevPageNum, nextPageNum }: PaginationWrapperProps) {
-  const { setPage } = usePage();
-
-  const onPreviousClick = () => setPage(currentPage - 1);
-  const onNextClick = () => setPage(currentPage + 1);
-  const onFirstPageClick = () => setPage(1);
-  const onLastPageClick = () => setPage(totalPages);
-
   const shouldShowAllPages = totalPages <= 5;
 
   if (shouldShowAllPages) {
@@ -32,9 +24,9 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
         <PaginationContent>
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
             <PaginationItem key={pageNumber}>
-              <PaginationButton isActive={currentPage === pageNumber} onClick={() => setPage(pageNumber)}>
+              <PaginationLink isActive={currentPage === pageNumber} href={`?page=${pageNumber}`}>
                 {pageNumber}
-              </PaginationButton>
+              </PaginationLink>
             </PaginationItem>
           ))}
         </PaginationContent>
@@ -47,14 +39,14 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
       <PaginationContent>
         {prevPageNum && (
           <PaginationItem>
-            <PaginationPrevious onClick={onPreviousClick} />
+            <PaginationPrevious href={`?page=${prevPageNum}`} />
           </PaginationItem>
         )}
 
         {currentPage > 1 && (
           <>
             <PaginationItem>
-              <PaginationButton onClick={onFirstPageClick}>1</PaginationButton>
+              <PaginationLink href={`?page=1`}>1</PaginationLink>
             </PaginationItem>
             <PaginationEllipsis />
           </>
@@ -62,17 +54,19 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
 
         {currentPage > 2 && (
           <PaginationItem>
-            <PaginationButton onClick={onPreviousClick}>{currentPage - 1}</PaginationButton>
+            <PaginationLink href={`?page=${prevPageNum}`}>{currentPage - 1}</PaginationLink>
           </PaginationItem>
         )}
 
         <PaginationItem>
-          <PaginationButton isActive>{currentPage}</PaginationButton>
+          <PaginationLink href={`?page=${currentPage}`} isActive>
+            {currentPage}
+          </PaginationLink>
         </PaginationItem>
 
         {currentPage < totalPages - 1 && (
           <PaginationItem>
-            <PaginationButton onClick={onNextClick}>{currentPage + 1}</PaginationButton>
+            <PaginationLink href={`?page=${nextPageNum}`}>{currentPage + 1}</PaginationLink>
           </PaginationItem>
         )}
 
@@ -80,14 +74,14 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
           <>
             <PaginationEllipsis />
             <PaginationItem>
-              <PaginationButton onClick={onLastPageClick}>{totalPages}</PaginationButton>
+              <PaginationLink href={`?page=${totalPages}`}>{totalPages}</PaginationLink>
             </PaginationItem>
           </>
         )}
 
         {nextPageNum && (
           <PaginationItem>
-            <PaginationNext onClick={onNextClick} />
+            <PaginationNext href={`?page=${nextPageNum}`} />
           </PaginationItem>
         )}
       </PaginationContent>
