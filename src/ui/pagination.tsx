@@ -1,8 +1,7 @@
-import * as React from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
-
-import { cn } from "@/utils";
+import * as React from "react";
 import { Button, ButtonProps, buttonVariants } from "@/ui/button";
+import { cn } from "@/utils";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav role="navigation" aria-label="pagination" className={cn("mx-auto flex w-full justify-center", className)} {...props} />
@@ -65,11 +64,8 @@ const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<"span"
 PaginationEllipsis.displayName = "PaginationEllipsis";
 
 export {
-  Pagination,
-  PaginationContent,
+  Pagination, PaginationButton, PaginationContent,
   PaginationEllipsis,
-  PaginationItem,
-  PaginationButton,
-  PaginationNext,
-  PaginationPrevious,
+  PaginationItem, PaginationNext,
+  PaginationPrevious
 };

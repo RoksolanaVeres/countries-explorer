@@ -1,7 +1,6 @@
-import * as React from "react";
-import { motion, type HTMLMotionProps } from "framer-motion";
-
 import { cn } from "@/utils";
+import { motion, type HTMLMotionProps } from "framer-motion";
+import * as React from "react";
 
 const Card = React.forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(({ className, ...props }, ref) => (
   <motion.div
@@ -9,7 +8,7 @@ const Card = React.forwardRef<HTMLDivElement, HTMLMotionProps<"div">>(({ classNa
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 0.3 }}
-    className={cn("rounded-lg border border-oxford-oxford-blue/20 bg-white text-black shadow-sm", className)}
+    className={cn("border-oxford-blue/20 rounded-lg border bg-white text-black shadow-sm", className)}
     {...props}
   />
 ));
@@ -28,7 +27,7 @@ const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HT
 CardTitle.displayName = "CardTitle";
 
 const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-  ({ className, ...props }, ref) => <p ref={ref} className={cn("text-sm text-oxford-hookers-green", className)} {...props} />,
+  ({ className, ...props }, ref) => <p ref={ref} className={cn("text-oxford-green text-sm", className)} {...props} />,
 );
 CardDescription.displayName = "CardDescription";
 
@@ -42,4 +41,4 @@ const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 ));
 CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };

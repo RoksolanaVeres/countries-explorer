@@ -19,11 +19,11 @@ export default defineConfig({
     extend: {
       colors: {
         oxford: {
-          "oxford-blue": "#001427",
-          "hookers-green": "#708d81",
+          blue: "#001427",
+          green: "#708d81",
           jasmine: "#f4d58d",
-          "engineering-orange": "#bf0603",
-          "dark-red": "#8d0801",
+          orange: "#bf0603",
+          red: "#8d0801",
         },
       },
       keyframes: {

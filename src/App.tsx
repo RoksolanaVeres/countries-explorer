@@ -1,19 +1,18 @@
-import CountryCard from "@/country-card";
 import useFetchCountries from "@/countries-store";
+import CountryCard from "@/country-card";
 import Error from "@/error";
 import Pagination from "@/pagination";
-import usePage from "@/use-page";
+import RegionFilters, { useFilter } from "@/region-filters";
 import Search, { useSearch } from "@/search";
+import usePage from "@/use-page";
+import { PER_PAGE } from "@/utils";
 import { useEffect } from "react";
-import RegionFilters, { useRegionFilter } from "@/region-filters";
-
-const PER_PAGE = 24;
 
 export default function App() {
   const { countries, loading, error } = useFetchCountries();
   const { page, setPage } = usePage();
   const { search } = useSearch();
-  const { region } = useRegionFilter();
+  const { region } = useFilter();
 
   const totalFilteredCountries = countries
     .filter(

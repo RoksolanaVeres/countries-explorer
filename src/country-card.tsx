@@ -12,9 +12,9 @@ export default function CountryCard({ country }: CountryCardProps) {
   return (
     <Card key={country.name.common} className="w-full max-w-[21rem]">
       <CardHeader className="p-0">
-        <div className="h-40 overflow-hidden rounded-t-lg border-b border-oxford-oxford-blue/15 drop-shadow-sm">
+        <div className="border-oxford-blue/15 h-40 overflow-hidden rounded-t-lg border-b drop-shadow-sm">
           {!imgLoaded && (
-            <Skeleton className="h-full w-full transform rounded-b-none rounded-t-lg bg-oxford-hookers-green/25 object-cover transition-transform duration-1000" />
+            <Skeleton className="bg-oxford-green/25 h-full w-full transform rounded-b-none rounded-t-lg object-cover transition-transform duration-1000" />
           )}
           <img
             src={country.flags.svg}
@@ -27,12 +27,12 @@ export default function CountryCard({ country }: CountryCardProps) {
       <CardContent className="flex flex-col gap-5 py-6">
         {!imgLoaded ? (
           <div className="flex flex-col gap-5">
-            <Skeleton className="h-4 w-3/4 transform rounded-full bg-oxford-hookers-green/25 transition-transform duration-1000" />
+            <Skeleton className="bg-oxford-green/25 h-4 w-3/4 transform rounded-full transition-transform duration-1000" />
             <div className="flex flex-col gap-3">
               {Array.from({ length: 3 }, (_, i) => i).map((i) => (
                 <Skeleton
                   key={i}
-                  className="h-3 w-1/2 transform rounded-full bg-oxford-hookers-green/25 transition-transform duration-1000"
+                  className="bg-oxford-green/25 h-3 w-1/2 transform rounded-full transition-transform duration-1000"
                 />
               ))}
             </div>
@@ -63,18 +63,18 @@ export default function CountryCard({ country }: CountryCardProps) {
 
 function CardSkeleton() {
   return (
-    <div className="w-full max-w-[21rem] rounded-lg border border-oxford-oxford-blue/20 bg-white text-black shadow-sm">
-      <div className="h-40 rounded-t-lg border-b  border-oxford-oxford-blue/15 drop-shadow-sm">
-        <Skeleton className="h-full w-full transform rounded-b-none rounded-t-lg bg-oxford-hookers-green/25 object-cover transition-transform duration-1000" />
+    <div className="border-oxford-blue/20 w-full max-w-[21rem] rounded-lg border bg-white text-black shadow-sm">
+      <div className="border-oxford-blue/15 h-40 rounded-t-lg  border-b drop-shadow-sm">
+        <Skeleton className="bg-oxford-green/25 h-full w-full transform rounded-b-none rounded-t-lg object-cover transition-transform duration-1000" />
       </div>
       <div className="p-6">
         <div className="flex flex-col gap-5">
-          <Skeleton className="h-4 w-3/4 transform rounded-full bg-oxford-hookers-green/25 transition-transform duration-1000" />
+          <Skeleton className="bg-oxford-green/25 h-4 w-3/4 transform rounded-full transition-transform duration-1000" />
           <div className="flex flex-col gap-3">
             {Array.from({ length: 3 }, (_, i) => i).map((i) => (
               <Skeleton
                 key={i}
-                className="h-3 w-1/2 transform rounded-full bg-oxford-hookers-green/25 transition-transform duration-1000"
+                className="bg-oxford-green/25 h-3 w-1/2 transform rounded-full transition-transform duration-1000"
               />
             ))}
           </div>

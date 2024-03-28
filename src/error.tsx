@@ -21,7 +21,7 @@ export default function Error({ message }: ErrorProps) {
             href="https://restcountries.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-oxford-oxford-blue underline underline-offset-2"
+            className="text-oxford-blue underline underline-offset-2"
           >
             API
           </a>{" "}

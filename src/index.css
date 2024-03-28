@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-oxford-oxford-blue/5;
+    @apply bg-oxford-blue/5;
   }
 }
 

@@ -13,7 +13,7 @@ type RegionFilterStore = {
   setRegion: (region: string) => void;
 };
 
-export const useRegionFilter = create<RegionFilterStore>((set) => ({
+export const useFilter = create<RegionFilterStore>((set) => ({
   region: getParams().get("region") || "",
   setRegion: (region: string) => {
     set({ region });
@@ -28,7 +28,7 @@ export const useRegionFilter = create<RegionFilterStore>((set) => ({
 }));
 
 export default function RegionFilters() {
-  const { region, setRegion } = useRegionFilter();
+  const { region, setRegion } = useFilter();
 
   return (
     <Select value={region} onValueChange={setRegion}>
