@@ -1,6 +1,6 @@
 import { RefreshCwIcon } from "lucide-react";
-import { Button } from "./components/ui/button";
-import { type Error } from "./countries-store";
+import { Button } from "@/ui/button";
+import { type Error } from "@/countries-store";
 
 type ErrorProps = {
   message: Error["message"];

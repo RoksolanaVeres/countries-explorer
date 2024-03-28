@@ -6,7 +6,7 @@ import {
   PaginationButton,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
+} from "@/ui/pagination";
 import usePage from "@/use-page";
 
 type PaginationWrapperProps = {
