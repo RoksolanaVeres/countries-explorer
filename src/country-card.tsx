@@ -10,7 +10,7 @@ type CountryCardProps = {
 export default function CountryCard({ country }: CountryCardProps) {
   const [imgLoaded, setImgLoaded] = useState(false);
   return (
-    <Card key={country.name.common} className="w-full max-w-[21rem]">
+    <Card key={country.name.common} className="min-h-[23rem] w-full max-w-[21rem]">
       <CardHeader className="p-0">
         <div className="border-oxford-blue/15 h-40 overflow-hidden rounded-t-lg border-b drop-shadow-sm">
           {!imgLoaded && (
@@ -40,7 +40,7 @@ export default function CountryCard({ country }: CountryCardProps) {
         ) : (
           <>
             <h3 className="w-fit cursor-default text-xl font-bold hover:underline">{country.name.common}</h3>
-            <ul className="flex flex-col gap-0.5">
+            <ul className="flex flex-col gap-1">
               <li>
                 <span className="font-semibold">Capital: </span>
                 {country.capital[0] || "N/A"}
