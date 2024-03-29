@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+import { URL, getCountriesStorageKey } from "@/utils";
 
 export type Country = {
   capital: string[];
@@ -35,8 +36,6 @@ export type Country = {
   borders: string[];
   cca3: string;
 };
-
-const URL = `https://restcountries.com/v3.1/all?fields=name,region,population,flags,capital,subregion,currencies,borders,languages,cca3,tld`;
 
 export type Error = {
   message: string;
@@ -81,7 +80,7 @@ export const useFetchCountries = create<UseFetchCountriesState & UseFetchCountri
       },
     })),
     {
-      name: "countries",
+      name: getCountriesStorageKey(),
       partialize: (state) => ({ countries: state.countries }),
     },
   ),
