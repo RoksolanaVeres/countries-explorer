@@ -52,7 +52,7 @@ export default function Search() {
       />
       <TooltipProvider delayDuration={60} disableHoverableContent>
         <Tooltip>
-          <TooltipTrigger className="group">
+          <TooltipTrigger className="group hidden sm:block">
             <CircleAlertIcon className="text-oxford-blue/70 group-hover:text-oxford-blue h-5 w-5 transition-colors duration-300" />
           </TooltipTrigger>
           <TooltipContent sideOffset={5} className="select-none text-xs">
