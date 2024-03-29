@@ -15,7 +15,7 @@ export const getCountriesStorageKey = () => {
   const STORAGE_KEY = `${STORAGE_KEY_BASE}-${STORAGE_VERSION}`;
   const PREV_STORAGE_KEY = `${STORAGE_KEY_BASE}-${parseInt(STORAGE_VERSION) - 1}`;
 
-  if (JSON.parse(localStorage.getItem(PREV_STORAGE_KEY) || "")) {
+  if (localStorage.getItem(PREV_STORAGE_KEY)) {
     localStorage.removeItem(PREV_STORAGE_KEY);
   }
 
