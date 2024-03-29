@@ -84,7 +84,7 @@ export default function CountryPage({ params }: CountryPageProps) {
     { key: "Languages", value: languages },
   ];
 
-  const hasBorders = country.borders.length > 0;
+  const hasBorders = country.borders && country.borders.length > 0;
 
   return (
     <div className="flex flex-col gap-14 sm:px-3 lg:px-14">
