@@ -1,8 +1,9 @@
 import { useFetchCountries } from "@/countries-store";
 import Error from "@/error";
-import { Button } from "./ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
+import { Button } from "@/ui/button";
+import { Skeleton } from "@/ui/skeleton";
 
 type CountryPageProps = {
   params: {
@@ -22,8 +23,21 @@ export default function CountryPage({ params }: CountryPageProps) {
     return (
       <div>
         <GoBackButton />
-        <div className="my-8">
-          <p className="flex justify-center text-2xl">Loading...</p>
+        <div className="my-8 flex flex-col items-center gap-11 lg:flex-row lg:items-start lg:justify-start lg:gap-16">
+          <Skeleton className="h-[45vh] w-full max-w-[650px]" />
+          <div className="flex w-full max-w-[650px] flex-col gap-8 lg:self-start">
+            <Skeleton className="h-6 w-48" />
+            <div className="flex flex-col gap-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Skeleton key={i} className="h-6 w-full max-w-96" />
+              ))}
+            </div>
+            <div className="flex flex-col gap-3">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Skeleton key={i} className="h-6 w-full max-w-96" />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -71,9 +85,9 @@ export default function CountryPage({ params }: CountryPageProps) {
   const hasBorders = country.borders.length > 0;
 
   return (
-    <div className="flex flex-col gap-14">
+    <div className="flex flex-col gap-14 sm:px-3 lg:px-14">
       <GoBackButton />
-      <div className="flex flex-col items-center gap-11 lg:flex-row lg:justify-start lg:gap-20">
+      <div className="flex flex-col items-center gap-11 lg:flex-row lg:items-start lg:justify-start lg:gap-16">
         <img src={imgSrc} alt={imgAlt} className="h-full max-h-[45vh] w-full max-w-[650px] object-cover" />
         <div className="flex w-full max-w-[650px] flex-col gap-4 lg:self-start">
           <h2 className="text-2xl font-bold">{countryName}</h2>
