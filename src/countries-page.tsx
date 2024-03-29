@@ -1,11 +1,11 @@
-import useFetchCountries from "@/countries-store";
+import { useFetchCountries } from "@/countries-store";
 import CountryCard from "@/country-card";
 import Error from "@/error";
 import Pagination from "@/pagination";
 import RegionFilters, { useFilter } from "@/region-filters";
 import Search, { useSearch } from "@/search";
 import { PER_PAGE } from "@/utils";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSearch as useWouterSearch } from "wouter";
 
 const usePage = () => {
@@ -31,6 +31,7 @@ export default function CountriesPage() {
   const { page, setPage } = usePage();
   const { search } = useSearch();
   const { region } = useFilter();
+  const prevPage = useRef(page);
 
   const totalFilteredCountries = countries
     .filter(
@@ -51,7 +52,10 @@ export default function CountriesPage() {
   const shouldShowPagination = totalPages > 1;
 
   useEffect(() => {
+    // Scroll to top should happen only when paginating
+    if (prevPage.current === page) return;
     window.scrollTo({ top: 0, behavior: "instant" });
+    prevPage.current = page;
   }, [page]);
 
   useEffect(() => {

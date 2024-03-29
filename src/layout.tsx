@@ -26,7 +26,7 @@ function Header() {
 
   return (
     <div className="bg-oxford-blue flex w-full flex-col items-center text-white shadow-sm">
-      <div className="flex h-20 w-full max-w-[100rem] items-center px-14">
+      <div className="flex h-20 w-full max-w-[100rem] items-center px-4 sm:px-8 lg:px-14">
         <h1 className="text-2xl font-semibold tracking-wide">
           <Link href="/" onClick={resetFilters}>
             Countries Explorer

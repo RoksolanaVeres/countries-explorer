@@ -21,9 +21,22 @@ export type Country = {
   };
   population: number;
   region: string;
+  subregion: string;
+  tld: string[];
+  currencies: {
+    [key: string]: {
+      name: string;
+      symbol: string;
+    };
+  };
+  languages: {
+    [key: string]: string;
+  };
+  borders: string[];
+  cca3: string;
 };
 
-const URL = `https://restcountries.com/v3.1/all?fields=name,region,population,flags,capital`;
+const URL = `https://restcountries.com/v3.1/all?fields=name,region,population,flags,capital,subregion,currencies,borders,languages,cca3,tld`;
 
 export type Error = {
   message: string;
@@ -42,7 +55,7 @@ type UseFetchCountriesActions = {
   setError: (error: Error) => void;
 };
 
-const useFetchCountries = create<UseFetchCountriesState & UseFetchCountriesActions>()(
+export const useFetchCountries = create<UseFetchCountriesState & UseFetchCountriesActions>()(
   persist(
     immer((set) => ({
       countries: [],
@@ -90,5 +103,3 @@ if (!useFetchCountries.getState().countries.length) {
 } else {
   useFetchCountries.getState().setLoading(false);
 }
-
-export default useFetchCountries;

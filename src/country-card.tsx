@@ -16,20 +16,25 @@ export default function CountryCard({ country }: CountryCardProps) {
     window.history.pushState({}, "", `/${country.name.common}`);
   };
 
+  const imgSrc = country.flags.svg || country.flags.png;
+  const imgAlt = country.flags.alt;
+
   return (
     <Card key={country.name.common} className="min-h-[23rem] w-full max-w-[21rem]">
       <CardHeader className="p-0">
-        <div className="border-oxford-blue/15 h-40 overflow-hidden rounded-t-lg border-b drop-shadow-sm">
+        <div className="border-oxford-blue/15 h-40 rounded-t-lg border-b drop-shadow-sm">
           {!imgLoaded && (
             <Skeleton className="bg-oxford-green/25 h-full w-full transform rounded-b-none rounded-t-lg object-cover transition-transform duration-1000" />
           )}
-          <Link href={`/${country.name.common}`} onClick={handleCountryNavigation}>
-            <img
-              src={country.flags.svg}
-              alt={country.flags.alt}
-              className="h-full w-full transform rounded-t-lg object-cover transition-transform duration-300 ease-out hover:scale-110"
-              onLoad={() => setImgLoaded(true)}
-            />
+          <Link href={`/${country.name.common}`} onClick={handleCountryNavigation} className="rounded-t-lg outline-offset-4">
+            <div className="h-full overflow-hidden rounded-t-lg">
+              <img
+                src={imgSrc}
+                alt={imgAlt}
+                className="h-full w-full transform rounded-t-lg object-cover transition-transform duration-300 ease-out hover:scale-110"
+                onLoad={() => setImgLoaded(true)}
+              />
+            </div>
           </Link>
         </div>
       </CardHeader>
