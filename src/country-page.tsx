@@ -60,7 +60,7 @@ export default function CountryPage({ params }: CountryPageProps) {
   const nativeName = country.name.nativeName[Object.keys(country.name.nativeName)[0]]?.common || "N/A";
   const population = country.population.toLocaleString() || "N/A";
 
-  const tlds = country.tld.join(", ") || "N/A";
+  const tlds = country.tld?.join(", ") || "N/A";
   const currencies =
     Object.entries(country.currencies)
       .map(([, { name, symbol }]) => `${name} (${symbol})`)
