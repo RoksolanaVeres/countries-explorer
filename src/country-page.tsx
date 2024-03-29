@@ -62,11 +62,13 @@ export default function CountryPage({ params }: CountryPageProps) {
 
   const tlds = country.tld?.join(", ") || "N/A";
   const currencies =
-    Object.entries(country.currencies)
-      .map(([, { name, symbol }]) => `${name} (${symbol})`)
-      .join(", ") || "N/A";
+    (country.currencies &&
+      Object.entries(country.currencies)
+        .map(([, { name, symbol }]) => `${name} (${symbol})`)
+        .join(", ")) ||
+    "N/A";
 
-  const languages = Object.values(country.languages).join(", ") || "N/A";
+  const languages = (country.languages && Object.values(country.languages).join(", ")) || "N/A";
 
   const primaryInfo = [
     { key: "Native Name", value: nativeName },
