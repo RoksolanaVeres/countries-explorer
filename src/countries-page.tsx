@@ -66,7 +66,6 @@ export default function CountriesPage() {
   if (!error.ok) {
     return <Error message={error.message} />;
   }
-  console.log("HEllo")
 
   return (
     <div className="flex flex-col gap-6 px-0 sm:px-3 lg:px-14">

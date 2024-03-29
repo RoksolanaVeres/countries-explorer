@@ -31,7 +31,7 @@ export default function CountryCard({ country }: CountryCardProps) {
               <img
                 src={imgSrc}
                 alt={imgAlt}
-                className="h-full w-full transform rounded-t-lg object-cover transition-transform duration-300 ease-out hover:scale-110"
+                className="h-full w-full transform rounded-t-lg object-cover transition-transform duration-300 ease-out hover:scale-110 motion-reduce:hover:scale-100"
                 onLoad={() => setImgLoaded(true)}
               />
             </div>

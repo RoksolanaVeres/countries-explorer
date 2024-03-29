@@ -32,7 +32,7 @@ export default function RegionFilters() {
 
   return (
     <Select value={region} onValueChange={setRegion}>
-      <SelectTrigger className="max-w-48">
+      <SelectTrigger className="max-w-48 select-none">
         <SelectValue placeholder="Filter by Region" />
       </SelectTrigger>
       <SelectContent>
