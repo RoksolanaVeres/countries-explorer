@@ -8,6 +8,8 @@ import {
   PaginationPrevious,
 } from "@/ui/pagination";
 
+import { useFilter } from "./region-filters";
+
 type PaginationWrapperProps = {
   currentPage: number;
   totalPages: number;
@@ -17,6 +19,7 @@ type PaginationWrapperProps = {
 
 export default function PaginationWrapper({ currentPage, totalPages, prevPageNum, nextPageNum }: PaginationWrapperProps) {
   const shouldShowAllPages = totalPages <= 5;
+  const { region } = useFilter();
 
   if (shouldShowAllPages) {
     return (
@@ -24,7 +27,10 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
         <PaginationContent>
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
             <PaginationItem key={pageNumber}>
-              <PaginationLink isActive={currentPage === pageNumber} href={`?page=${pageNumber}`}>
+              <PaginationLink
+                isActive={currentPage === pageNumber}
+                href={region ? `?region=${region}&page=${pageNumber}` : `?page=${pageNumber}`}
+              >
                 {pageNumber}
               </PaginationLink>
             </PaginationItem>
