@@ -45,14 +45,14 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
       <PaginationContent>
         {prevPageNum && (
           <PaginationItem>
-            <PaginationPrevious href={`?page=${prevPageNum}`} />
+            <PaginationPrevious href={region ? `?region=${region}&page=${prevPageNum}` : `?page=${prevPageNum}`} />
           </PaginationItem>
         )}
 
         {currentPage > 1 && (
           <>
             <PaginationItem>
-              <PaginationLink href={`?page=1`}>1</PaginationLink>
+              <PaginationLink href={region ? `?region=${region}&page=1` : `?page=1`}>1</PaginationLink>
             </PaginationItem>
             <PaginationEllipsis />
           </>
@@ -60,19 +60,23 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
 
         {currentPage > 2 && (
           <PaginationItem>
-            <PaginationLink href={`?page=${prevPageNum}`}>{currentPage - 1}</PaginationLink>
+            <PaginationLink href={region ? `?region=${region}&page=${prevPageNum}` : `?page=${prevPageNum}`}>
+              {currentPage - 1}
+            </PaginationLink>
           </PaginationItem>
         )}
 
         <PaginationItem>
-          <PaginationLink href={`?page=${currentPage}`} isActive>
+          <PaginationLink href={region ? `?region=${region}&page=${currentPage}` : `?page=${currentPage}`} isActive>
             {currentPage}
           </PaginationLink>
         </PaginationItem>
 
         {currentPage < totalPages - 1 && (
           <PaginationItem>
-            <PaginationLink href={`?page=${nextPageNum}`}>{currentPage + 1}</PaginationLink>
+            <PaginationLink href={region ? `?region=${region}&page=${nextPageNum}` : `?page=${nextPageNum}`}>
+              {currentPage + 1}
+            </PaginationLink>
           </PaginationItem>
         )}
 
@@ -80,14 +84,16 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
           <>
             <PaginationEllipsis />
             <PaginationItem>
-              <PaginationLink href={`?page=${totalPages}`}>{totalPages}</PaginationLink>
+              <PaginationLink href={region ? `?region=${region}&page=${totalPages}` : `?page=${totalPages}`}>
+                {totalPages}
+              </PaginationLink>
             </PaginationItem>
           </>
         )}
 
         {nextPageNum && (
           <PaginationItem>
-            <PaginationNext href={`?page=${nextPageNum}`} />
+            <PaginationNext href={region ? `?region=${region}&page=${nextPageNum}` : `?page=${nextPageNum}`} />
           </PaginationItem>
         )}
       </PaginationContent>
