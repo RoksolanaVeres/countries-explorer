@@ -28,7 +28,7 @@ const usePage = () => {
 
 export default function CountriesPage() {
   const { countries, loading, error } = useFetchCountries();
-  const { page, setPage } = usePage();
+  const { page } = usePage();
   const { search } = useSearch();
   const { region } = useFilter();
   const prevPage = useRef(page);
@@ -57,11 +57,6 @@ export default function CountriesPage() {
     window.scrollTo({ top: 0, behavior: "instant" });
     prevPage.current = page;
   }, [page]);
-
-  useEffect(() => {
-    if (search === "") return;
-    setPage(1);
-  }, [search, setPage]);
 
   if (!error.ok) {
     return <Error message={error.message} />;

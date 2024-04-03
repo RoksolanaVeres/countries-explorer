@@ -9,6 +9,7 @@ import {
 } from "@/ui/pagination";
 
 import { useFilter } from "./region-filters";
+import { useSearch } from "./search";
 
 type PaginationWrapperProps = {
   currentPage: number;
@@ -20,6 +21,10 @@ type PaginationWrapperProps = {
 export default function PaginationWrapper({ currentPage, totalPages, prevPageNum, nextPageNum }: PaginationWrapperProps) {
   const shouldShowAllPages = totalPages <= 5;
   const { region } = useFilter();
+  const { search } = useSearch();
+
+  const regionParam = region ? `region=${region}` : "";
+  const searchParam = search ? `search=${search}` : "";
 
   if (shouldShowAllPages) {
     return (
@@ -27,10 +32,7 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
         <PaginationContent>
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
             <PaginationItem key={pageNumber}>
-              <PaginationLink
-                isActive={currentPage === pageNumber}
-                href={region ? `?region=${region}&page=${pageNumber}` : `?page=${pageNumber}`}
-              >
+              <PaginationLink isActive={currentPage === pageNumber} href={`?${regionParam}&${searchParam}&page=${pageNumber}`}>
                 {pageNumber}
               </PaginationLink>
             </PaginationItem>
@@ -45,14 +47,14 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
       <PaginationContent>
         {prevPageNum && (
           <PaginationItem>
-            <PaginationPrevious href={region ? `?region=${region}&page=${prevPageNum}` : `?page=${prevPageNum}`} />
+            <PaginationPrevious href={`?${regionParam}&${searchParam}&page=${prevPageNum}`} />
           </PaginationItem>
         )}
 
         {currentPage > 1 && (
           <>
             <PaginationItem>
-              <PaginationLink href={region ? `?region=${region}&page=1` : `?page=1`}>1</PaginationLink>
+              <PaginationLink href={`?${regionParam}&${searchParam}&page=${prevPageNum}`}>1</PaginationLink>
             </PaginationItem>
             <PaginationEllipsis />
           </>
@@ -60,23 +62,19 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
 
         {currentPage > 2 && (
           <PaginationItem>
-            <PaginationLink href={region ? `?region=${region}&page=${prevPageNum}` : `?page=${prevPageNum}`}>
-              {currentPage - 1}
-            </PaginationLink>
+            <PaginationLink href={`?${regionParam}&${searchParam}&page=${prevPageNum}`}>{currentPage - 1}</PaginationLink>
           </PaginationItem>
         )}
 
         <PaginationItem>
-          <PaginationLink href={region ? `?region=${region}&page=${currentPage}` : `?page=${currentPage}`} isActive>
+          <PaginationLink href={`?${regionParam}&${searchParam}&page=${currentPage}`} isActive>
             {currentPage}
           </PaginationLink>
         </PaginationItem>
 
         {currentPage < totalPages - 1 && (
           <PaginationItem>
-            <PaginationLink href={region ? `?region=${region}&page=${nextPageNum}` : `?page=${nextPageNum}`}>
-              {currentPage + 1}
-            </PaginationLink>
+            <PaginationLink href={`?${regionParam}&${searchParam}&page=${nextPageNum}`}>{currentPage + 1}</PaginationLink>
           </PaginationItem>
         )}
 
@@ -84,16 +82,14 @@ export default function PaginationWrapper({ currentPage, totalPages, prevPageNum
           <>
             <PaginationEllipsis />
             <PaginationItem>
-              <PaginationLink href={region ? `?region=${region}&page=${totalPages}` : `?page=${totalPages}`}>
-                {totalPages}
-              </PaginationLink>
+              <PaginationLink href={`?${regionParam}&${searchParam}&page=${totalPages}`}>{totalPages}</PaginationLink>
             </PaginationItem>
           </>
         )}
 
         {nextPageNum && (
           <PaginationItem>
-            <PaginationNext href={region ? `?region=${region}&page=${nextPageNum}` : `?page=${nextPageNum}`} />
+            <PaginationNext href={`?${regionParam}&${searchParam}&page=${nextPageNum}`} />
           </PaginationItem>
         )}
       </PaginationContent>
